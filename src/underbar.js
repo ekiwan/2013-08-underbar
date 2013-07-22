@@ -74,7 +74,7 @@ var _ = { };
   _.filter = function(collection, iterator) {
      var passed = [];
      _.each(collection, function(element) {
-       if (iterator(element)) { //I took a wild guess on this line after I couldn't get it to work. Now it works and I don't really understand how.
+       if (iterator(element)) { 
          passed.push(element);
        };
      });
