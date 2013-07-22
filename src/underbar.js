@@ -89,6 +89,16 @@ var _ = { };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+     var uniques = [];
+     var indices = {};
+     _.each(array, function(element) {
+       if (!indices.hasOwnProperty(element)) {
+        //stores the index in an object as a key with no value, to prevent duplicates in the output array
+         indices[element] = undefined;
+         uniques.push(element);
+       }
+     });
+     return uniques;
   };
 
 
