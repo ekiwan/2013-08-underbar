@@ -56,10 +56,19 @@ var _ = { };
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
+     //This one is stumping me. I can't figure out hwo to make it work even thought my code seems like it should be working
+     _.each(array, function(element, index) {
+       if (element === target){
+         return index;
+       }
+     });
+        return -1;
+   };
+    
     // TIP: Here's an example of a function that needs to iterate, which we've
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
-  };
+  
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
