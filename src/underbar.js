@@ -56,14 +56,13 @@ var _ = { };
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
-     //This one is stumping me. I can't figure out hwo to make it work even thought my code seems like it should be working
      var index2 = -1;
      _.each(array, function(element, index) {
        if (index2 === -1 && element === target){
          index2 = index;
        }
      });
-        return index2;
+      return index2;
    };
     
     // TIP: Here's an example of a function that needs to iterate, which we've
@@ -84,13 +83,21 @@ var _ = { };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, iterator) {
-         var rejected = [];
-     _.each(collection, function(element) {
-       if (!iterator(element)) { 
-         rejected.push(element);
-       };
-     });
-     return rejected;
+    var replacementIterator = function(element) {
+      return !iterator(element);
+    };
+
+    return _.filter(collection, replacementIterator);
+
+
+
+     //     var rejected = [];
+     // _.each(collection, function(element) {
+     //   if (!iterator(element)) { 
+     //     rejected.push(element);
+     //   };
+     // });
+     // return rejected;
     // TIP: see if you can re-use _.select() here, without simply
     // copying code in and modifying it
   };
@@ -113,8 +120,8 @@ var _ = { };
   // Return the results of applying an iterator to each element.
   _.map = function(array, iterator) {
      var results = [];
-     _.each(array, function(element, index) {
-       results[index] = iterator(element);
+     _.each(array, function(element, index, array) {
+       results[index] = iterator(element, index, array);
      });
      return results;
     // map() is a useful primitive iteration function that works a lot
@@ -142,6 +149,10 @@ var _ = { };
 
   // Calls the method named by methodName on each value in the list.
   _.invoke = function(list, methodName, args) {
+    return _.map(list, function(element) {
+      var method = element[methodName];
+      return method.apply(element, args);
+    });
   };
 
   // Reduces an array or object to a single value by repetitively calling
