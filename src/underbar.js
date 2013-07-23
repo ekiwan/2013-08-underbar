@@ -57,12 +57,13 @@ var _ = { };
   // is not present in the array.
   _.indexOf = function(array, target){
      //This one is stumping me. I can't figure out hwo to make it work even thought my code seems like it should be working
+     var index2 = -1;
      _.each(array, function(element, index) {
-       if (element === target){
-         return index;
+       if (index2 === -1 && element === target){
+         index2 = index;
        }
      });
-        return -1;
+        return index2;
    };
     
     // TIP: Here's an example of a function that needs to iterate, which we've
