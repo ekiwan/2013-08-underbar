@@ -174,6 +174,14 @@ var _ = { };
   //   }, 0); // should be 6
   //
   _.reduce = function(collection, iterator, initialValue) {
+     var previousValue = 0; //sets previousValue so it is defined
+     if (initialValue) { //checks to see if initialValue is defined, then sets it to previousValue
+       previousValue = initialValue;
+     }
+     _.each(collection, function(element){
+       return previousValue = iterator(previousValue, element);
+     });
+     return previousValue;
   };
 
   // Determine if the array or object contains a given value (using `===`).
