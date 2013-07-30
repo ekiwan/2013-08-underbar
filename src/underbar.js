@@ -189,7 +189,7 @@ var _ = { };
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
     return _.reduce(collection, function(wasFound, item) {
-      if(wasFound) {
+      if(wasFound) { //Getting confused in here. Where is wasFound coming from? 
         return true;
       }
       return item === target;
@@ -200,6 +200,19 @@ var _ = { };
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if (!iterator) { 
+      //my code wasn't working unless i did it this way. i think it's because this ensures a boolean type.
+      //first I tried iterator === undefined but tests were still failing
+      var iterator = function(i) { return i; }; //this sets getValue because tests were saying it was undefined
+      //even though it is defined in the tests
+    }
+
+    return _.reduce(collection, function(test, item){
+      if(!test){
+        return false;
+      }
+      return !!iterator(item); //this is a really confusing way to force a boolean type
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
