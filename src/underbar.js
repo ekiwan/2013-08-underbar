@@ -17,23 +17,22 @@ var _ = { };
   // return just the first element.
   _.first = function(array, n) {
     if (n === undefined) {
-          return array[0];
-      }
-      else { return array.slice(0, n); }
+      return array[0];
+    } else {
+      return array.slice(0, n);
+    }
   };
 
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
-     if (n === undefined) {
-       return array.pop();
+    if (n === undefined) {
+      return array.pop();
+    } else if (n > array.length) {
+      return array.slice(0, array.length);
+    } else {
+      return array.slice(array.length - n, array.length);
     }
-     else if (n > array.length) {
-       return array.slice(0, array.length);
-    }
-     else {
-       return array.slice(array.length - n, array.length);
-     }
 
   };
 
@@ -44,41 +43,39 @@ var _ = { };
       for (var i = 0; i <  collection.length; i++) {
         iterator(collection[i], i, collection);
       }
-    }
-    else {
+    } else {
       for (var key in collection) {
         iterator (collection[key], key, collection);
       }
     }
-
   };
 
   // Returns the index at which value can be found in the array, or -1 if value
   // is not present in the array.
   _.indexOf = function(array, target){
-     var index2 = -1;
-     _.each(array, function(element, index) {
-       if (index2 === -1 && element === target){
-         index2 = index;
-       }
-     });
+    var index2 = -1;
+    _.each(array, function(element, index) {
+      if (index2 === -1 && element === target){
+        index2 = index;
+      }
+    });
       return index2;
    };
-    
+
     // TIP: Here's an example of a function that needs to iterate, which we've
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
-  
+
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, iterator) {
-     var passed = [];
-     _.each(collection, function(element) {
-       if (iterator(element)) { 
-         passed.push(element);
-       };
-     });
-     return passed;
+    var passed = [];
+    _.each(collection, function(element) {
+      if (iterator(element)) {
+        passed.push(element);
+      }
+    });
+    return passed;
   };
 
   // Return all elements of an array that don't pass a truth test.
@@ -93,7 +90,7 @@ var _ = { };
 
      //     var rejected = [];
      // _.each(collection, function(element) {
-     //   if (!iterator(element)) { 
+     //   if (!iterator(element)) {
      //     rejected.push(element);
      //   };
      // });
@@ -151,8 +148,8 @@ var _ = { };
   _.invoke = function(list, methodName, args) {
     return _.map(list, function(element) {
       if (typeof methodName === 'string') {
-      var method = element[methodName];
-      return method.apply(element, args);
+        var method = element[methodName];
+        return method.apply(element, args);
       }
       else {
         return methodName.apply(element, args);
@@ -174,20 +171,21 @@ var _ = { };
   //   }, 0); // should be 6
   //
   _.reduce = function(collection, iterator, initialValue) {
-     var previousValue = 0; //sets previousValue so it is defined
-     if (initialValue) { //checks to see if initialValue is defined, then sets it to previousValue
-       previousValue = initialValue;
+    var previousValue = 0; //sets previousValue so it is defined
+    if (initialValue) { //checks to see if initialValue is defined, then sets it to previousValue
+      previousValue = initialValue;
      }
-     _.each(collection, function(element){
-       return previousValue = iterator(previousValue, element);
-     });
-     return previousValue;
+    _.each(collection, function(element){
+      return previousValue = iterator(previousValue, element);
+    });
+    return previousValue;
   };
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
+    //debugger;
     return _.reduce(collection, function(wasFound, item) {
       if(wasFound) { //Getting confused in here. Where is wasFound coming from? 
         return true;
@@ -200,10 +198,10 @@ var _ = { };
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
-    if (!iterator) { 
+    if (iterator === undefined) { 
       //my code wasn't working unless i did it this way. i think it's because this ensures a boolean type.
       //first I tried iterator === undefined but tests were still failing
-      var iterator = function(i) { return i; }; //this sets getValue because tests were saying it was undefined
+      iterator = function(i) { return i; }; //this sets getValue because tests were saying it was undefined
       //even though it is defined in the tests
     }
 
