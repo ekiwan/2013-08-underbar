@@ -199,9 +199,7 @@ var _ = { };
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
     if (iterator === undefined) { 
-      //my code wasn't working unless i did it this way. i think it's because this ensures a boolean type.
-      //first I tried iterator === undefined but tests were still failing
-      iterator = function(i) { return i; }; //this sets getValue because tests were saying it was undefined
+    iterator = function(i) { return i; }; //this sets getValue because tests were saying it was undefined
       //even though it is defined in the tests
     }
 
@@ -217,7 +215,23 @@ var _ = { };
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-  };
+    if (collection.length === 0) { //handles the empty set
+      return false;
+    }
+    if (!iterator) {
+      iterator = function(element) { //sets default iterator if none is defined
+      return !!element;
+      }
+    }
+    return _.contains(_.map(collection, function(element) {
+      return !!iterator(element) //runs contains on the result of map. couldn't figure out how to use every
+    }), true);
+
+    //before this, i first tried to define a variable as contains and then return the variable, but that was making the
+    //second test fail even though it was returning the correct value. why?
+    
+};
+
 
 
   /**
