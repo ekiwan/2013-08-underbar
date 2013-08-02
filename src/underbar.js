@@ -352,7 +352,8 @@ var _ = { };
     var args = Array.prototype.slice.apply(arguments).slice(2); //gets the args
    
     window.setTimeout(function() { //calls function after timeout
-      func.apply(args); //I can't get the args to apply
+      func.apply(this, args); //I googled some examples that for apply that have
+      //this as the first argument. i don't know why this is working though
     }, wait);
   };
 
