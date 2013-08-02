@@ -273,6 +273,21 @@ var _ = { };
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
   _.defaults = function(obj) {
+    var args = Array.prototype.slice.apply(arguments).slice(1); //convert arguments object to array
+    
+    var merger = function (original, additions) {
+      for (var key in additions) {
+        if (original[key] === undefined) { //only do this if the target has no value
+          original[key] = additions[key]; //this adds the new keys to the original object
+        }
+      }
+    }
+    _.each(args, function(newObj) {
+      merger(obj, newObj);
+    }); //this runs merger function on each
+
+    return obj;
+    
   };
 
 
