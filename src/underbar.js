@@ -328,14 +328,15 @@ var _ = { };
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    var computed = {};
+    var computed = {}; //store computed args and results in here
 
     return function(){
       var args = JSON.stringify(arguments);
       if (computed[args]) {
-        return computed[args];
+        return computed[args]; //if the computed args exist then just return them
       } else {
-        return computed[args] = func.apply(this, arguments);
+        return computed[args] = func.apply(this, arguments); //otherwise plug them into 
+        //the function and then return
       }
     }
   };
