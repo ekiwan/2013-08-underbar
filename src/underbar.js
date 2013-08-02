@@ -351,7 +351,7 @@ var _ = { };
     
     var args = Array.prototype.slice.apply(arguments).slice(2); //gets the args
    
-    window.setTimeout(function() { //calls function after timeout
+    return setTimeout(function() { //calls function after timeout
       func.apply(this, args); //I googled some examples that for apply that have
       //this as the first argument. i don't know why this is working though
     }, wait);
@@ -365,6 +365,17 @@ var _ = { };
 
   // Shuffle an array.
   _.shuffle = function(array) {
+    var shuffledArray = [];
+    var indices = [];
+
+    _.each(array, function(element,index){
+      shuffledArray.push(array[indices.splice(Math.floor(Math.random() * indices.length), 0)]);
+    })
+    return shuffledArray;
+
+    //i googled how to shuffle an array and modified the code a bit. this passes
+    //the test but it returns an array of undefined elements. not sure what's going on
+
   };
 
 
